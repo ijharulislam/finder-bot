@@ -1,0 +1,1 @@
+process.env['VERIFY_TOKEN'] = 'test_token';

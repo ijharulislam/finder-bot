@@ -24,7 +24,7 @@ app.get('/webhook', function(req, res) {
     res.status(200).send(req.query['hub.challenge']);
   } else {
     console.error("Failed validation. Make sure the validation tokens match.");
-    res.sendStatus(200);        
+    res.sendStatus(403);          
   }
 });
 
@@ -67,7 +67,6 @@ app.post('/webhook', function (req, res) {
     // will time out and we will keep trying to resend.
     res.sendStatus(200);
   }
-  res.sendStatus(200);
 });
 
 // Incoming events handling
@@ -77,8 +76,8 @@ function receivedMessage(event) {
   var timeOfMessage = event.timestamp;
   var message = event.message;
 
-  console.log("Received message for user %d and page %d at %d with message:", 
-    senderID, recipientID, timeOfMessage);
+  console.log("Received message for user %d and page %d at %d with message: %d", 
+    senderID, recipientID, timeOfMessage, event.sender);
   console.log(JSON.stringify(message));
 
   var messageId = message.mid;
