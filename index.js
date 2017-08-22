@@ -99,24 +99,30 @@ function receivedMessage(event) {
   var message_number = getNumber(messageText)
 
   if (message_number){
-  var api = "http://mint.finder-lbs.com/api/v1/message"
-  var data = {
-    "name":"",
-    "phone": message_number,
-    "message": messageText,
-    "secret_key": "9799443B926A395298EEBF43D8DD5"
-  }
-  fetch(api, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-  }).then(res=>res.json())
-    .then(res => console.log(res));
-  }
+    
+    var api = "http://mint.finder-lbs.com/api/v1/message"
+    var data = {
+      "name":"",
+      "phone": message_number,
+      "message": messageText,
+      "secret_key": "9799443B926A395298EEBF43D8DD5"
+    }
 
+    request({
+      uri: api,
+      method: 'POST',
+      json: JSON.stringify(data)
+
+    }, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+
+        console.log("Successfully saved number");
+      } else {
+        console.error("Unable to saved message.");
+        console.error(response);
+        console.error(error);
+      }
+    }); 
 
   if (messageText) {
     switch (messageText) {
