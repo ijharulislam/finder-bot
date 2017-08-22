@@ -56,7 +56,7 @@ app.post('/webhook', function (req, res) {
 });
 
 
-function getNumber(message){
+function saveNumber(message){
   var finalEnlishToBanglaNumber={'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
   String.prototype.getDigitEnglishFromBangla = function() {
     var retStr = this;
@@ -74,7 +74,32 @@ function getNumber(message){
     matchedNumber = matchedNumber[0]
     console.log(matchedNumber)
     if(matchedNumber.length===11||matchedNumber.length===13||matchedNumber.length===14){
-    return matchedNumber
+    
+    var api = "http://mint.finder-lbs.com/api/v1/message"
+    var data = {
+      "name":"",
+      "phone": matchedNumber,
+      "message": message,
+      "secret_key": "9799443B926A395298EEBF43D8DD5"
+    }
+
+    request({
+      uri: api,
+      method: 'POST',
+      json: data
+
+    }, function (error, response, body) {
+      if (!error && response.statusCode == 201) {
+
+        console.log("Successfully saved number");
+      } else {
+        console.error("Unable to saved message.");
+        // console.error(response);
+        console.error(error);
+      }
+    }
+    )
+      return matchedNumber
     }
   }
   return;
@@ -96,33 +121,7 @@ function receivedMessage(event) {
   var messageText = message.text;
   var messageAttachments = message.attachments;
 
-  var message_number = getNumber(messageText)
-
-  if (message_number){
-    
-    var api = "http://mint.finder-lbs.com/api/v1/message"
-    var data = {
-      "name":"",
-      "phone": message_number,
-      "message": messageText,
-      "secret_key": "9799443B926A395298EEBF43D8DD5"
-    }
-
-    request({
-      uri: api,
-      method: 'POST',
-      json: JSON.stringify(data)
-
-    }, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-
-        console.log("Successfully saved number");
-      } else {
-        console.error("Unable to saved message.");
-        console.error(response);
-        console.error(error);
-      }
-    }); 
+  var message_number = saveNumber(messageText)
 
   if (messageText) {
     switch (messageText) {
