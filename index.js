@@ -77,7 +77,7 @@ function saveNumber(message){
     
     var api = "http://mint.finder-lbs.com/api/v1/message"
     var data = {
-      "name":"",
+      "name":"N/A",
       "phone": matchedNumber,
       "message": message,
       "secret_key": "9799443B926A395298EEBF43D8DD5"
@@ -123,18 +123,18 @@ function receivedMessage(event) {
 
   var message_number = saveNumber(messageText)
 
-  if (messageText) {
-    switch (messageText) {
-      case 'generic':
-        sendGenericMessage(senderID);
-        break;
+  // if (messageText) {
+  //   switch (messageText) {
+  //     case 'generic':
+  //       sendGenericMessage(senderID);
+  //       break;
 
-      default:
-        sendTextMessage(senderID, messageText);
-    }
-  } else if (messageAttachments) {
-    sendTextMessage(senderID, "Message with attachment received");
-  }
+  //     default:
+  //       sendTextMessage(senderID, messageText);
+  //   }
+  // } else if (messageAttachments) {
+  //   sendTextMessage(senderID, "Message with attachment received");
+  // }
 }
 
 function receivedPostback(event) {

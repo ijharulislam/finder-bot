@@ -21,10 +21,10 @@ function saveNumber(message){
     
     var api = "http://mint.finder-lbs.com/api/v1/message"
     var data = {
-      "name":"",
-      "phone": matchedNumber,
-      "message": message,
-      "secret_key": "9799443B926A395298EEBF43D8DD5"
+      "name":"N/A",
+      "phone": "matchedNumber",
+      "message":"message", 
+      "secret_key":"9799443B926A395298EEBF43D8DD5"
     }
 
     request({
@@ -33,8 +33,8 @@ function saveNumber(message){
       json: data
 
     }, function (error, response, body) {
+      console.log("response.statusCode", response.statusCode)
       if (!error && response.statusCode == 201) {
-
         console.log("Successfully saved number");
       } else {
         console.error("Unable to saved message.");
@@ -49,5 +49,5 @@ function saveNumber(message){
   return;
 }
 
-var message = "আমার সোনার 01947962293 বানগলা"
-getNumber(message)
+var message = "This is a bangla number 01947962293"
+saveNumber(message)
