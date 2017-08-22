@@ -22,8 +22,8 @@ function saveNumber(message){
     var api = "http://mint.finder-lbs.com/api/v1/message"
     var data = {
       "name":"N/A",
-      "phone": "matchedNumber",
-      "message":"message", 
+      "phone": matchedNumber,
+      "message":message, 
       "secret_key":"9799443B926A395298EEBF43D8DD5"
     }
 
