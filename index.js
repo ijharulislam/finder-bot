@@ -123,6 +123,10 @@ function receivedMessage(event) {
 
   var message_number = saveNumber(messageText)
 
+  if(message_number){
+    sendGenericMessage(senderID)
+  }
+
   // if (messageText) {
   //   switch (messageText) {
   //     case 'generic':
@@ -172,35 +176,13 @@ function sendGenericMessage(recipientId) {
         type: "template",
         payload: {
           template_type: "generic",
-          elements: [{
-            title: "rift",
-            subtitle: "Next-generation virtual reality",
-            item_url: "https://www.oculus.com/en-us/rift/",               
-            image_url: "http://messengerdemo.parseapp.com/img/rift.png",
-            buttons: [{
-              type: "web_url",
-              url: "https://www.oculus.com/en-us/rift/",
-              title: "Open Web URL"
-            }, {
-              type: "postback",
-              title: "Call Postback",
-              payload: "Payload for first bubble",
-            }],
-          }, {
-            title: "touch",
-            subtitle: "Your Hands, Now in VR",
-            item_url: "https://www.oculus.com/en-us/touch/",               
-            image_url: "http://messengerdemo.parseapp.com/img/touch.png",
-            buttons: [{
-              type: "web_url",
-              url: "https://www.oculus.com/en-us/touch/",
-              title: "Open Web URL"
-            }, {
-              type: "postback",
-              title: "Call Postback",
-              payload: "Payload for second bubble",
-            }]
-          }]
+          elements: [
+            {
+              title: "SOF Link",
+              subtitle: "ধন্যবাদ, আপনার ফোন নাম্বার আমাদের দেওয়ার জন্য, খুব তাড়াতাড়ি  আমাদের সেলস থেকে আপনার সাথে যোগাযোগ করা হবে, অথবা আপনি নিচের লিংকে ক্লিক করে এখনই সেলস অর্ডার ফর্ম ফিলাপ করতে পারেন",
+              item_url: "https://goo.gl/M4vNRp"
+            }
+          ]
         }
       }
     }
