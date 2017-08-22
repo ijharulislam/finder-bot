@@ -66,7 +66,7 @@ function getNumber(message){
       return retStr;
   };
 
-  convertedMsg = message.getDigitEnglishFromBangla()
+  var convertedMsg = message.getDigitEnglishFromBangla()
 
   var re = /(\+88)?01\d+/g;
   var matchedNumber = convertedMsg.match(re);
@@ -97,7 +97,7 @@ function receivedMessage(event) {
   var messageAttachments = message.attachments;
 
   var message_number = getNumber(messageText)
-  
+
   if (message_number){
   var api = "http://mint.finder-lbs.com/api/v1/message"
   var data = {
