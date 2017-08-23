@@ -56,14 +56,6 @@ app.post('/webhook', function (req, res) {
 });
 
 
-function getUserInfo(senderId){
-  request('https://graph.facebook.com/v2.6/'+senderId+'?access_token='+process.env.PAGE_ACCESS_TOKEN, function (error, response, body) {
-    console.log('Profile body:', body);
-    return body
-  });
-}
-
-
 function saveNumber(message, senderId){
   var finalEnlishToBanglaNumber={'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
   String.prototype.getDigitEnglishFromBangla = function() {
@@ -80,37 +72,37 @@ function saveNumber(message, senderId){
   var matchedNumber = convertedMsg.match(re);
   if (matchedNumber){
 
-    var profile = getUserInfo(senderId)
-    console.log("profile:", profile)
-
     matchedNumber = matchedNumber[0]
     console.log(matchedNumber)
     if(matchedNumber.length===11||matchedNumber.length===13||matchedNumber.length===14||matchedNumber.length===12||matchedNumber.length===15){
-    
-    var api = "http://mint.finder-lbs.com/api/v1/message"
-    var data = {
-      "name":"N/A",
-      "phone": matchedNumber,
-      "message": message,
-      "secret_key": "9799443B926A395298EEBF43D8DD5"
-    }
 
-    request({
-      uri: api,
-      method: 'POST',
-      json: data
+      request('https://graph.facebook.com/v2.6/'+senderId+'?access_token='+process.env.PAGE_ACCESS_TOKEN, function (error, response, body) {
+        var profile = body;
+        var name = profile["first_name"] + " " + profile["last_name"]
+        var api = "http://mint.finder-lbs.com/api/v1/message"
+        var data = {
+          "name":name,
+          "phone": matchedNumber,
+          "message": message,
+          "secret_key": "9799443B926A395298EEBF43D8DD5"
+        }
 
-    }, function (error, response, body) {
-      if (!error && response.statusCode == 201) {
+        request({
+          uri: api,
+          method: 'POST',
+          json: data
 
-        console.log("Successfully saved number");
-      } else {
-        console.error("Unable to saved message.");
-        // console.error(response);
-        console.error(error);
-      }
-    }
-    )
+        }, function (error, response, body) {
+          if (!error && response.statusCode == 201) {
+            console.log("Successfully saved number");
+          } else {
+            console.error("Unable to saved message.");
+            console.error(error);
+          }
+        })
+     
+      });
+
       return matchedNumber
     }
   }
@@ -135,7 +127,7 @@ function receivedMessage(event) {
 
   if(messageText){
     var message_number = saveNumber(messageText, senderID)
-    
+
     if(message_number){
       sendGenericMessage(senderID)
     }
