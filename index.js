@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const path = require('path');
-var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><body><h1>Facebook Messenger Bot</h1>This is a bot based on Messenger Platform QuickStart. For more details, see their <a href=\"https://developers.facebook.com/docs/messenger-platform/guides/quick-start\">docs</a>.<script src=\"https://button.glitch.me/button.js\" data-style=\"glitch\"></script><div class=\"glitchButton\" style=\"position:fixed;top:20px;right:20px;\"></div></body></html>";
+var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><body><h1>Finder Facebook Bot</h1></body></html>";
 
 let app = express();
 
@@ -68,12 +68,12 @@ function saveNumber(message){
 
   var convertedMsg = message.getDigitEnglishFromBangla()
 
-  var re = /(\+88)?01\d+/g;
+  var re = /(\+88)?01\d+(-| )?\d+/g;
   var matchedNumber = convertedMsg.match(re);
   if (matchedNumber){
     matchedNumber = matchedNumber[0]
     console.log(matchedNumber)
-    if(matchedNumber.length===11||matchedNumber.length===13||matchedNumber.length===14){
+    if(matchedNumber.length===11||matchedNumber.length===13||matchedNumber.length===14||matchedNumber.length===12||matchedNumber.length===15){
     
     var api = "http://mint.finder-lbs.com/api/v1/message"
     var data = {
