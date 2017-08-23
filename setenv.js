@@ -49,5 +49,13 @@ function saveNumber(message){
   return;
 }
 
-var message = "This is a bangla number 01947962293"
-saveNumber(message)
+var id = 1858699820811894
+var token = "EAAHOZBiXiJeUBAFqhSJAYooei5SSS8ZARjYZAuwCtZBDToatSZAQFtyDA0gs8Tg03VO0hxx7JEHC5dyR4TmSCvkWWmoZAHUBOPvue9FEDchROVzZBQy1nWka4bkSFAWn6ypPbZCWHtgbyAs8nI09ZCIIT4MoqoldcwdddU0o3jXogCAZDZD"
+
+request('https://graph.facebook.com/v2.6/'+id+'?access_token='+token, function (error, response, body) {
+    var profile = JSON.parse(body);
+    console.log("profile", profile["first_name"])
+})
+
+
+
