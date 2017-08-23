@@ -79,9 +79,9 @@ function saveNumber(message, senderId){
   var re = /(\+88)?01\d+(-| )?\d+/g;
   var matchedNumber = convertedMsg.match(re);
   if (matchedNumber){
-    
+
     var profile = getUserInfo(senderId)
-    console.log(profile)
+    console.log("profile:", profile)
 
     matchedNumber = matchedNumber[0]
     console.log(matchedNumber)
