@@ -79,6 +79,8 @@ function saveNumber(message, senderId){
       request('https://graph.facebook.com/v2.6/'+senderId+'?access_token='+process.env.PAGE_ACCESS_TOKEN, function (error, response, body) {
         var profile = body;
         var name = profile["first_name"] + " " + profile["last_name"]
+        
+        console.log("User Name", name);
         var api = "http://mint.finder-lbs.com/api/v1/message"
         var data = {
           "name":name,
