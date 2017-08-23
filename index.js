@@ -56,7 +56,15 @@ app.post('/webhook', function (req, res) {
 });
 
 
-function saveNumber(message){
+function getUserInfo(senderId){
+  request('https://graph.facebook.com/v2.6/'+senderId+'?access_token='+process.env.PAGE_ACCESS_TOKEN, function (error, response, body) {
+    console.log('Profile body:', body);
+    return body
+  });
+}
+
+
+function saveNumber(message, senderId){
   var finalEnlishToBanglaNumber={'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
   String.prototype.getDigitEnglishFromBangla = function() {
     var retStr = this;
@@ -71,6 +79,10 @@ function saveNumber(message){
   var re = /(\+88)?01\d+(-| )?\d+/g;
   var matchedNumber = convertedMsg.match(re);
   if (matchedNumber){
+    
+    var profile = getUserInfo(senderId)
+    console.log(profile)
+
     matchedNumber = matchedNumber[0]
     console.log(matchedNumber)
     if(matchedNumber.length===11||matchedNumber.length===13||matchedNumber.length===14||matchedNumber.length===12||matchedNumber.length===15){
@@ -121,7 +133,7 @@ function receivedMessage(event) {
   var messageText = message.text;
   var messageAttachments = message.attachments;
 
-  var message_number = saveNumber(messageText)
+  var message_number = saveNumber(messageText, senderID)
 
   if(message_number){
     sendGenericMessage(senderID)
