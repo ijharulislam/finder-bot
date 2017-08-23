@@ -132,7 +132,8 @@ function receivedMessage(event) {
     var message_number = saveNumber(messageText, senderID)
 
     if(message_number){
-      sendGenericMessage(senderID)
+      var message = "ধন্যবাদ, আমরা দ্রুত যোগাযোগ করব। চাইলে আপনি এখনই নিচের ফর্মটি পূরণ করতে পারেন। http://mint.finder-lbs.com/asset/register"
+      sendTextMessage(senderID, message)
     }
   }
 
