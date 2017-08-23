@@ -133,10 +133,12 @@ function receivedMessage(event) {
   var messageText = message.text;
   var messageAttachments = message.attachments;
 
-  var message_number = saveNumber(messageText, senderID)
-
-  if(message_number){
-    sendGenericMessage(senderID)
+  if(messageText){
+    var message_number = saveNumber(messageText, senderID)
+    
+    if(message_number){
+      sendGenericMessage(senderID)
+    }
   }
 
   // if (messageText) {
