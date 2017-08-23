@@ -78,7 +78,7 @@ function saveNumber(message, senderId){
 
       request('https://graph.facebook.com/v2.6/'+senderId+'?access_token='+process.env.PAGE_ACCESS_TOKEN, function (error, response, body) {
         var profile = body;
-        console.log("profile", profile["first_name"])
+        console.log("profile", type(body), body.first_name)
         var name = profile["first_name"] + " " + profile["last_name"]
 
         console.log("User Name", name);
