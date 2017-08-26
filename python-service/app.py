@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from chatterbot.trainers import ListTrainer
+
 import json
 
 app = Flask(__name__)
