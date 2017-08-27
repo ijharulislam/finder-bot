@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from chatterbot.trainers import ListTrainer
+import csv
 
 import json
 
@@ -9,10 +10,24 @@ from chatterbot import ChatBot
 chatbot = ChatBot("Finder", trainer='chatterbot.trainers.ChatterBotCorpusTrainer')
 # chatbot.train('chatterbot.corpus.english')
 # Train based on english greetings corpus
-chatbot.train("chatterbot.corpus.english.greetings")
+# chatbot.train("chatterbot.corpus.english.greetings")
 
-# Train based on the english conversations corpus
-chatbot.train("chatterbot.corpus.english.conversations")
+# # Train based on the english conversations corpus
+# chatbot.train("chatterbot.corpus.english.conversations")
+
+file_name = "Inbox - Sheet1.csv"
+
+data = []
+with open('%s'%file_name, 'r') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        data.append(row['Customer'])
+        data.append(row['Finder'])
+
+data = [d for d in data if d != ""]
+print(data)
+chatbot.set_trainer(ListTrainer)
+chatbot.train(data)
 
 @app.route('/')
 def hello():
